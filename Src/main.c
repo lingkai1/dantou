@@ -103,7 +103,7 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
 //			HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 4);
-	printf("1234567890");
+	//printf("1234567890");
 	HAL_Delay(500);
   }
   /* USER CODE END 3 */
