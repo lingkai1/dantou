@@ -88,7 +88,7 @@ void Bubble_sort_all(uint32_t *in, uint8_t len)
         }
     }
 }
-
+//////////////////////////////////////////////////////////////////////////
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
  if (htim->Instance == htim3.Instance)/* 1ms interupt*/
@@ -104,7 +104,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  }
  
 }
-
 void timer4DataTranmit()
 {
 	uint8_t data[10];
@@ -138,6 +137,7 @@ void timer4DataTranmit()
 	HAL_UART_Transmit(&huart1, (uint8_t *)data, sizeof(data), 0xFFFF);
 
 }
+//////////////////////////////////////////////////////
 void timer3DataProcess()
 {
 	int i =0;
@@ -152,7 +152,7 @@ void timer3DataProcess()
 	  maxStay ++;	
 	else
 		maxStay = 0xFFFFFFFF;
-		
+	///////////////////////////////////////////////////	
 	for(i = 0; i < sampleNum; i++)
 	{
 		switch (i%4)
@@ -179,7 +179,7 @@ void timer3DataProcess()
 	LightData.data[1] = L1;
 	LightData.data[2] = L2;
 	LightData.data[3] = L3;	 
-	
+	/////////////////////////////////////////////////////////
 
 	LightDataSort = LightData;
 	Bubble_sort(&LightDataSort);

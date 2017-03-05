@@ -39,7 +39,7 @@
 #include "dma.h"
 
 /* USER CODE BEGIN 0 */
-
+// 1.4M ADC1  1.4M/4 = 0.35;
 /* USER CODE END 0 */
 
 ADC_HandleTypeDef hadc1;

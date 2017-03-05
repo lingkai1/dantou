@@ -1,8 +1,7 @@
 /**
   ******************************************************************************
-  * File Name          : gpio.c
-  * Description        : This file provides code for the configuration
-  *                      of all used GPIO pins.
+  * File Name          : main.h
+  * Description        : This file contains the common defines of the application
   ******************************************************************************
   *
   * COPYRIGHT(c) 2017 STMicroelectronics
@@ -31,47 +30,38 @@
   *
   ******************************************************************************
   */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __MAIN_H
+#define __MAIN_H
+  /* Includes ------------------------------------------------------------------*/
 
-/* Includes ------------------------------------------------------------------*/
-#include "gpio.h"
-/* USER CODE BEGIN 0 */
+/* USER CODE BEGIN Includes */
 
-/* USER CODE END 0 */
+/* USER CODE END Includes */
 
-/*----------------------------------------------------------------------------*/
-/* Configure GPIO                                                             */
-/*----------------------------------------------------------------------------*/
-/* USER CODE BEGIN 1 */
+/* Private define ------------------------------------------------------------*/
 
-/* USER CODE END 1 */
-
-/** Configure pins as 
-        * Analog 
-        * Input 
-        * Output
-        * EVENT_OUT
-        * EXTI
-*/
-void MX_GPIO_Init(void)
-{
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-
-}
-
-/* USER CODE BEGIN 2 */
-
-/* USER CODE END 2 */
+#define J2_Pin GPIO_PIN_4
+#define J2_GPIO_Port GPIOA
+#define J4_Pin GPIO_PIN_5
+#define J4_GPIO_Port GPIOA
+#define J3_Pin GPIO_PIN_6
+#define J3_GPIO_Port GPIOA
+#define J1_Pin GPIO_PIN_7
+#define J1_GPIO_Port GPIOA
+/* USER CODE BEGIN Private defines */
+#define sampleNum 400   //每个通过100的队列  采样速度是1.4M adc1   1.4M / 400 = 3500Hz;
+#define shunshizhen 1
+#define convariance 0.6347
+/* USER CODE END Private defines */
 
 /**
   * @}
-  */
+  */ 
 
 /**
   * @}
-  */
+*/ 
 
+#endif /* __MAIN_H */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

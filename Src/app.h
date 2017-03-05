@@ -7,4 +7,5 @@ uint32_t sumArray(uint32_t *in, uint8_t len);
 void Bubble_sort_all(uint32_t *in, uint8_t len);
 void findTenMaxAndMinAD(void);
 void findAngel(void);
+void findEachLightMaxEveryPeriod();
 #endif

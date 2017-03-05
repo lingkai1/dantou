@@ -52,7 +52,6 @@ dkms.conf
 
 #ignore folder
 /Drivers/
-/Inc/
 /MDK-ARM/
 
 #ignore cubemx
