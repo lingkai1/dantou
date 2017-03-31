@@ -83,5 +83,18 @@
 #define CTRL_REG2_RAW_SHIFT          5
 #define CTRL_REG2_Mag_RST_MARK       0x10
 #define CTRL_REG2_Mag_RST_SHIFT      4
+typedef unsigned          char uint8_t;
+void mag3110_init(void);
+void ReadI2C(uint8_t REG_Address );
+typedef struct
+{
+	uint8_t DeviceId;
+	uint8_t Current_Mode;
+	char Temperature;
+	short MAG3110_XOut; 
+	short MAG3110_YOut; 
+	short MAG3110_ZOut; 	
+}mag3110DataType;
 /********************************************************************/
 #endif
+

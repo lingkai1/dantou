@@ -41,14 +41,12 @@
 
 /* Private define ------------------------------------------------------------*/
 
-#define J2_Pin GPIO_PIN_4
-#define J2_GPIO_Port GPIOA
-#define J4_Pin GPIO_PIN_5
-#define J4_GPIO_Port GPIOA
-#define J3_Pin GPIO_PIN_6
-#define J3_GPIO_Port GPIOA
-#define J1_Pin GPIO_PIN_7
-#define J1_GPIO_Port GPIOA
+#define Direction_Pin GPIO_PIN_5
+#define Direction_GPIO_Port GPIOA
+#define ENCO_Pin GPIO_PIN_6
+#define ENCO_GPIO_Port GPIOA
+#define EncoderZero_Pin GPIO_PIN_7
+#define EncoderZero_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 #define sampleNum 400   //每个通过100的队列  采样速度是1.4M adc1   1.4M / 400 = 3500Hz;
 #define shunshizhen 1

@@ -34,6 +34,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "i2c.h"
+
 #include "gpio.h"
 
 /* USER CODE BEGIN 0 */

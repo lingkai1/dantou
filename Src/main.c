@@ -33,8 +33,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
-#include "adc.h"
-#include "dma.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -63,7 +61,7 @@ void Error_Handler(void);
 /* USER CODE BEGIN 0 */
 
 extern uint32_t ADC_Value[sampleNum];
-
+extern mag3110DataType magData;
 /* USER CODE END 0 */
 
 int main(void)
@@ -83,22 +81,29 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_ADC1_Init();
   MX_USART1_UART_Init();
-  MX_TIM3_Init();
   MX_TIM4_Init();
   MX_I2C1_Init();
+  MX_TIM2_Init();
 
   /* USER CODE BEGIN 2 */
 	
-	HAL_TIM_Base_Start_IT(&htim3);
-	HAL_TIM_Base_Start_IT(&htim4);
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, sampleNum);
+
+	//HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, sampleNum);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+		mag3110_init();
+		//Æô¶¯¶¨Ê±Æ÷
+		HAL_TIM_Base_Start_IT(&htim2);
+  	HAL_TIM_Base_Start_IT(&htim4);
+	//HAL_Delay(100);
+	do
+	{
+	HAL_I2C_Mem_Read(&hi2c1, MAG3110_DEV_READ,MAG3110_SYSMOD,I2C_MEMADD_SIZE_8BIT, &magData.Current_Mode,1, 1000);
+	}while(magData.Current_Mode != MAG3110_ACTIVE_NO_RAWDATA_MODE);
+	
   while (1)
   {
   /* USER CODE END WHILE */
@@ -106,7 +111,8 @@ int main(void)
   /* USER CODE BEGIN 3 */
 //			HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 4);
 	//printf("1234567890");
-	HAL_Delay(500);
+	ReadI2C(5);		
+	//HAL_Delay(500);
   }
   /* USER CODE END 3 */
 
