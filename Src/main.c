@@ -61,14 +61,17 @@ void Error_Handler(void);
 /* USER CODE BEGIN 0 */
 
 extern uint32_t ADC_Value[sampleNum];
-extern mag3110DataType magData;
+volatile int16_t encoderCout = 0;
+volatile int16_t encoderCoutPre = 0;
+volatile int16_t encoderCoutNow = 0;
+int16_t angle_encoder;
 /* USER CODE END 0 */
 
 int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-		
+	uint8_t deviceId;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -85,7 +88,8 @@ int main(void)
   MX_TIM4_Init();
   MX_I2C1_Init();
   MX_TIM2_Init();
-
+  MX_TIM3_Init();
+	
   /* USER CODE BEGIN 2 */
 	
 
@@ -94,28 +98,31 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-		mag3110_init();
+//		mag3110_init();
+		FXO8700_init();
 		//Æô¶¯¶¨Ê±Æ÷
+		HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
 		HAL_TIM_Base_Start_IT(&htim2);
   	HAL_TIM_Base_Start_IT(&htim4);
 	//HAL_Delay(100);
-	do
-	{
-	HAL_I2C_Mem_Read(&hi2c1, MAG3110_DEV_READ,MAG3110_SYSMOD,I2C_MEMADD_SIZE_8BIT, &magData.Current_Mode,1, 1000);
-	}while(magData.Current_Mode != MAG3110_ACTIVE_NO_RAWDATA_MODE);
-	
+//	do
+//	{
+//	HAL_I2C_Mem_Read(&hi2c1, MAG3110_DEV_READ,MAG3110_SYSMOD,I2C_MEMADD_SIZE_8BIT, &magData.Current_Mode,1, 1000);
+//	}while(magData.Current_Mode != MAG3110_ACTIVE_NO_RAWDATA_MODE);
+	HAL_I2C_Mem_Read(&hi2c1, FXOS8700CQ_READ, FXOS8700CQ_WHOAMI,I2C_MEMADD_SIZE_8BIT, &deviceId,1, 1000);
   while (1)
   {
   /* USER CODE END WHILE */
-
+		
   /* USER CODE BEGIN 3 */
 //			HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&ADC_Value, 4);
 	//printf("1234567890");
-	ReadI2C(5);		
-	//HAL_Delay(500);
+		encoderCout = (int16_t)__HAL_TIM_GET_COUNTER(&htim3);
+		angle_encoder = (float)encoderCout/400.0f * 360.0f ;
+		ReadI2C(5);		
+	HAL_Delay(1);
   }
   /* USER CODE END 3 */
-
 }
 
 /** System Clock Configuration

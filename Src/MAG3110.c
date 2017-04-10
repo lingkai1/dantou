@@ -12,7 +12,8 @@ uint32_t magSpeedCount = 0;
 int16_t 		MAG3110_XOutMoni;
 int16_t 		MAG3110_YOutMoni;
 int16_t 		MAG3110_ZOutMoni; 
-float guassxPre[2]
+float guassxPre[2];
+
 int rollMoni;
 //int16_t 		MAG3110_XOutMoniG;
 //int16_t 		MAG3110_YOutMoniG;
@@ -44,9 +45,10 @@ int mag_angle_moni;
 int mag_speed_moni;
 int angle_diff_moni;
 
-float pitch = 0; // 弹头朝上
+float pitch = PI/2; // 弹头朝上
 float yaw = 0;
 float roll;
+int rollMoni;
 float mag_angle_out;
 float mag_angle_out_pre;
 float mag_speed_out_w = 0;
@@ -55,11 +57,11 @@ float mag_angle_out_180;
 float mag_angle_out_180_filter;
 float angle_diff;
 float mag_speed_out_Hz;
-
-
+int angleEncoderMoni;
+extern uint16_t encoderCout;
 //矫正的参数-不加隔离
-float magOffet[3] = {1.26620908414456,-2.51427927355129,3.37020530735832};
-float B[6] = {0.930735345168825,0.0174750456839866,0.0259263526808963,1.02675871521418,0.0166155925765658,1.04772859784064};
+float magOffet[3] = {1.21452532417021,-0.37224793383576,1.3469415614604};
+float B[6] = {0.915561463549689,0.0155757713390649,-0.0108877652877784,1.04056165577371,0.0106991483380153,1.05016112176846};
 void mag3110_init()
 {
 	uint8_t ctrl2Config = CTRL_REG2_AUTO_MRST_EN_MARK;
@@ -154,6 +156,7 @@ void ReadI2C(uint8_t REG_Address )
 //			mag_speed_out_r = -2.56 * mag_speed_out_w + 1.6 * mag_angle_out_180;
 //			mag_speed_out_w = 0.98019867f * mag_speed_out_w + 0.01237582918 * mag_angle_out_180;
 				mag_speed_out_r = mag_speed_out_r * ((0.0625-0.0125)/0.0625) + 1/0.0625 * (mag_angle_out_180 - mag_angle_out_pre);
+				
 		}
 		//mag_speed_out_r = mag_speed_out_r * ((0.0625-0.0125)/0.0625) + 1/0.0625 * (mag_angle_out_180 - mag_angle_out_pre);
 		//mag_speed_out_r = mag_speed_out_r * exp(-0.0125/0.125) + 0.125 * (1 - exp(-0.0125/0.125)) * mag_angle_out_180;
@@ -166,7 +169,7 @@ void ReadI2C(uint8_t REG_Address )
 		
 		
 		roll = atan2((temp2 * magGauss.y-temp1 * magGauss.z),(temp1 * magGauss.y + temp2 * magGauss.z));
-		rollMoni = (roll * (180.0f/PI));
+		rollMoni = (roll * (180.0f/PI)) + 180;
 		mag_angle_out_pre = mag_angle_out_180;
 		
 		//angle_diff = angle_diff * (180/PI);
@@ -184,6 +187,7 @@ void ReadI2C(uint8_t REG_Address )
 //		mag_speed_out_r = 2*PI/mag_speed_out_w;
 //		
 		mag_speed_moni = mag_speed_out_r * 1000;
+		angleEncoderMoni = (float)encoderCout/512 * 360; 	
 //		angle_diff_moni = angle_diff * 1000;
 	}		
 }

@@ -40,7 +40,6 @@ float angle;
 float lambda;
 float angle180;
 float angle180Pre=0;
-uint16_t encoderCout = 0;
 
 
 extern float mag_speed_out_r;
@@ -49,22 +48,22 @@ extern uint32_t magSpeedCount;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if(GPIO_Pin == ENCO_Pin)
-	{
-		if(HAL_GPIO_ReadPin(Direction_GPIO_Port,Direction_Pin) == GPIO_PIN_SET)
-		{
-			encoderCout ++;
-		}
-		else
-		{
-			encoderCout --;
-		}
-	}
-	if(GPIO_Pin == EncoderZero_Pin)
-	{
-		
-		encoderCout = 0;	
-	}
+//	if(GPIO_Pin == ENCO_Pin)
+//	{
+//		if(HAL_GPIO_ReadPin(Direction_GPIO_Port,Direction_Pin) == GPIO_PIN_SET)
+//		{
+//			encoderCout ++;
+//		}
+//		else
+//		{
+//			encoderCout --;
+//		}
+//	}
+//	if(GPIO_Pin == EncoderZero_Pin)
+//	{
+//		
+//		encoderCout = 0;	
+//	}
 }	
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {

@@ -43,7 +43,8 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-#include "MAG3110.h"
+//#include "MAG3110.h"
+#include "FX0S8700CQ.h"	 
 /* USER CODE END Includes */
 
 extern I2C_HandleTypeDef hi2c1;
